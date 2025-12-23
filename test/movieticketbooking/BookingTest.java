@@ -1,71 +1,102 @@
 package movieticketbooking;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions; // test sonuçlarını kontrol etmek için vardır
 import org.junit.jupiter.api.Test;
 
-import movieticketbooking.Booking;
-import movieticketbooking.Customer;
-import movieticketbooking.Movie;
-import movieticketbooking.Movie2D;
-import movieticketbooking.Seat;
-import movieticketbooking.ShowTime;
+class BookingTest { // Booking sınıfını test ediyoruz
 
-class BookingTest {
 
     @Test
-    void normalCustomer_shouldPayFullPrice() {
-        Movie movie = new Movie2D("TestMovie", 100);
-        ShowTime st = new ShowTime(movie, "18:00", 5);
-        Seat seat = st.getSeat(1);
+    void testNormalTicketPrice() { // Normal müşteri için fiyatın doğruluğunu test eder 
+        
+        // Random bir rezervasyon oluşturulup tam fiyatın gelip gelmediğine bakılır
+        Movie m = new Movie2D("Inception", 100);
+        ShowTime st = new ShowTime(m, "20:00", 10);
+        Seat s = st.getSeat(1);
 
-        Customer normal = new Customer("Ali", Customer.CustomerType.NORMAL);
-        Booking booking = new Booking(normal, st, seat);
+        Customer c = new Customer("Ali", Customer.CustomerType.NORMAL);
+        Booking b = new Booking(c, st, s);
 
-        assertEquals(movie.getPrice(), booking.getTotalPrice(), 0.0001);
+        // Normal müşterilerin tam fiyat ödediğini kontrol eder
+        Assertions.assertEquals(200.0, b.getTotalPrice(), 0.01);
     }
 
     @Test
-    void studentCustomer_shouldGetDiscount() {
-        Movie movie = new Movie2D("TestMovie", 100);
-        ShowTime st = new ShowTime(movie, "18:00", 5);
-        Seat seat = st.getSeat(2);
+    void testStudentDiscountCalculation() { // Öğrenci indiriminin yapılıp yapılmadığı test edilir
+        Movie m = new Movie2D("Inception", 100);
+        ShowTime st = new ShowTime(m, "20:00", 10);
+        Seat s = st.getSeat(2);
 
-        Customer student = new Customer("Ayşe", Customer.CustomerType.STUDENT);
-        Booking booking = new Booking(student, st, seat);
+        Customer c = new Customer("Veli", Customer.CustomerType.STUDENT);
+        Booking b = new Booking(c, st, s);
 
-        double expected = movie.getPrice() * 0.80; // %20 indirim
-        assertEquals(expected, booking.getTotalPrice(), 0.0001);
+        // Öğrenci olan müşterilere %20 indirim olduğunu kontrol eder
+        Assertions.assertEquals(160.0, b.getTotalPrice(), 0.01);
     }
 
     @Test
-    void confirm_shouldBookSeat() {
-        Movie movie = new Movie2D("TestMovie", 100);
-        ShowTime st = new ShowTime(movie, "18:00", 5);
-        Seat seat = st.getSeat(3);
+    void testSeatConfirmationSystem() { // Rezervasyon yapılınca koltuğun doldurulduğunu kontrol eder
+        Movie m = new Movie2D("Inception", 100);
+        ShowTime st = new ShowTime(m, "20:00", 10);
+        Seat s = st.getSeat(3);
 
-        Customer normal = new Customer("Mehmet", Customer.CustomerType.NORMAL);
-        Booking booking = new Booking(normal, st, seat);
+        Booking b = new Booking(
+            new Customer("Ayse", Customer.CustomerType.NORMAL), st, s
+        );
 
-        assertFalse(seat.isBooked());
-        booking.confirm();
-        assertTrue(seat.isBooked());
+        b.confirm();
+
+        // üstteki confirm'in koltuğu doldurması gerektiği için yapıp yapmadığına bakar
+        Assertions.assertTrue(s.isBooked());
+    }
+
+
+    @Test
+    void testInvalidSeatNumber() { 
+        Movie m = new Movie2D("Test", 100);
+        ShowTime st = new ShowTime(m, "18:00", 5); // 5 koltuklu bir seans oluşturur
+
+        // Olmayan bir koltuk girildiğinde hata vermesi beklenir
+        Assertions.assertThrows(IllegalArgumentException.class, () -> st.getSeat(6));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> st.getSeat(0));
     }
 
     @Test
-    void secondBookingSameSeat_shouldNotSucceedInBookingAgain() {
-        Movie movie = new Movie2D("TestMovie", 100);
-        ShowTime st = new ShowTime(movie, "18:00", 5);
-        Seat seat = st.getSeat(4);
+    void testEmptyParameterErrors() { //dolu olması gereken değerleri kontrol eder
+        Movie m = new Movie2D("Test", 100);
 
-        Customer c1 = new Customer("C1", Customer.CustomerType.NORMAL);
-        Booking b1 = new Booking(c1, st, seat);
+        // Film boş olursa hata vermesi beklenir
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new ShowTime(null, "18:00", 5)
+        );
+
+        // Saat boş olursa hata vermesi beklenir
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new ShowTime(m, "", 5)
+        );
+    }
+
+    @Test
+    void testBookingSameSeatAgain() { //aynı koltuğun tekrar alınaadığını kontrol eder
+        Movie m = new Movie2D("Test", 100);
+        ShowTime st = new ShowTime(m, "18:00", 5);
+        Seat s = st.getSeat(1);
+
+        // İlk müşteri koltuğu alır
+        Booking b1 = new Booking(
+            new Customer("Can", Customer.CustomerType.NORMAL), st, s
+        );
         b1.confirm();
-        assertTrue(seat.isBooked());
 
-        Customer c2 = new Customer("C2", Customer.CustomerType.NORMAL);
-        Booking b2 = new Booking(c2, st, seat);
+        // İkinci müşteri aynı koltuğu almaya çalışır
+        Booking b2 = new Booking(
+            new Customer("Ece", Customer.CustomerType.NORMAL), st, s
+        );
         b2.confirm();
 
-        // seat zaten booked kalmalı; ikinci booking seat'i tekrar boş yapamaz
-        assertTrue(seat.isBooked());
+        // Koltuk dolu kalmalı
+        Assertions.assertTrue(s.isBooked());
     }
 }
