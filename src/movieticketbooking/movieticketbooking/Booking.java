@@ -56,12 +56,7 @@ public class Booking {
         System.out.println("Price: " + totalPrice + " TL");
     }
 
-    public double getTotalPrice1() { //hesaplanmış fiyatı dışarı verir 
-        return totalPrice;
-    }
-    
-
-    public double getTotalPrice() {
+    public double getTotalPrice() { //hesaplanmış fiyatı dışarı verir 
         return totalPrice;
     }
 }
