@@ -1,4 +1,3 @@
-package movieticketbooking;
 public class Movie2D extends Movie {
 
     public Movie2D(String title, int duration) {
@@ -7,6 +6,6 @@ public class Movie2D extends Movie {
 
     @Override
     public double getPrice() {
-        return 200.0;
+        return 10.0;
     }
 }
