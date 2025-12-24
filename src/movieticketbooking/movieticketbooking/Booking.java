@@ -8,7 +8,7 @@ public class Booking {
     private double totalPrice; //fiyatı tutar
     private boolean confirmed; //rezervasyonun olup olmadığını tutar
 
-    private static final double STUDENT_DISCOUNT_RATE = 0.20; // %20  //Öğrenciler için uygulanacak indirim oranını sabitler 
+    private static final double STUDENT_DISCOUNT_RATE = 0.20; // Öğrenciler için uygulanacak olan %20 indirim oranını sabitler 
 
     public Booking(Customer customer, ShowTime showTime, Seat seat) { //rezervasyon oluşturulması için gerekli bilgileri alır
         this.customer = customer;
