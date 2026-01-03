@@ -20,7 +20,7 @@ class SeatTest {
      * Tests that a newly created seat is not booked by default.
      */
     @Test
-    void testInitialStateIsNotBooked() {  //Koltuk oluşturulduğunda boş olması gerktiği için kontrol eder
+    void testInitialStateIsNotBooked() {  
         Seat seat = new Seat(1);
         Assertions.assertFalse(seat.isBooked(), "New seat should be not booked");
     }
@@ -30,7 +30,7 @@ class SeatTest {
      * Tests that calling the book() method marks the seat as booked.
      */
     @Test
-    void testSeatBooking() { //book() meetodu çağrıldığında koltuk dolu olmalı
+    void testSeatBooking() { 
         Seat seat = new Seat(2);
         seat.book();
         Assertions.assertTrue(seat.isBooked(), "Seat should be booked after calling book()");
@@ -42,8 +42,8 @@ class SeatTest {
      * still start as not booked since no validation exists in Seat constructor.
      */
     @Test
-    void testInvalidSeatNumberWithoutValidation() { //Geçersiz koltuk numarasını kontrol eder
-        // sadece başlangıç durumunun booked=false olduğu kontrol edilir
+    void testInvalidSeatNumberWithoutValidation() { 
+        
         Seat seatZero = new Seat(0);
         Assertions.assertFalse(seatZero.isBooked(), "Seat with number 0 should start as not booked");
 
@@ -57,17 +57,14 @@ class SeatTest {
      * when book() is called again.
      */
     @Test
-    void testBookingAlreadyBookedSeat() { //Zaten dolu olan koltuğun tekrar rezerve edilemeyeceğini hata mesajı verir
+    void testBookingAlreadyBookedSeat() {
         Seat seat = new Seat(10);
 
-        // İlk kez rezerve etme
         seat.book();
         Assertions.assertTrue(seat.isBooked(), "Seat should be booked after first booking");
 
-        // İkinci kez book çağrısı 
         seat.book();
-
-        // Bir koltuk doluyken tekrar alınamasın diye tekrar rezervasyon yapılınca sistem boş koltuğa dolu demesin kontrolü
+        
         Assertions.assertTrue(seat.isBooked(), "Even if a second reservation is made, the seat must not be empty.");
     }
 }

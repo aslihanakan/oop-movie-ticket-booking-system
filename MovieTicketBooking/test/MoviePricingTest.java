@@ -17,7 +17,7 @@ class MoviePricingTest {
      * when a Movie object is created.
      */
     @Test
-    void testMovieInformation() { // Film bilgilerinin doğruluğuna bakar
+    void testMovieInformation() {
         Movie m = new Movie2D("Inception", 148);
 
         Assertions.assertEquals("Inception", m.getMovieTitle());
@@ -29,11 +29,11 @@ class MoviePricingTest {
      * Tests that the price of a 3D movie is higher than the price of a 2D movie.
      */
     @Test
-    void test3DPriceDifference() {  // 3D filmin fiyatının 2D filmlerden daha yüksek oluğunu kontrol eder
+    void test3DPriceDifference() {  
         Movie m2d = new Movie2D("Gravity", 100);
         Movie m3d = new Movie3D("Gravity", 100);
 
-        // 3D filmin daha pahalı olması gerekir
+        
         Assertions.assertTrue(m3d.getPrice() > m2d.getPrice());
     }
 
@@ -43,14 +43,14 @@ class MoviePricingTest {
      * throw IllegalArgumentException.
      */
     @Test
-    void testInvalidMovieDuration() {  // Geçersiz film süresi girildiğinde hata verilmesine bakar
+    void testInvalidMovieDuration() { 
 
         try {
             new Movie2D("Error", -10);
             Assertions.fail("Exception was expected but not thrown");
         } catch (IllegalArgumentException e) {
         	
-            // Negatif süre hatasını yazdırır
+           
             System.out.println("Error message (negative duration): " + e.getMessage());
         }
 
@@ -59,7 +59,7 @@ class MoviePricingTest {
             Assertions.fail("Exception was expected but not thrown");
         } catch (IllegalArgumentException e) {
         	
-            // Sıfır süre hatasını yazdırır
+           
             System.out.println("Error message (zero duration): " + e.getMessage());
         }
     }
@@ -70,14 +70,14 @@ class MoviePricingTest {
      * throws IllegalArgumentException.
      */
     @Test
-    void testEmptyMovieTitle() { // Boş film ismi girildiğinde hata verilmesini kontrol eder
+    void testEmptyMovieTitle() {
 
         try {
             new Movie2D("", 120);
             Assertions.fail("Exception was expected but not thrown");
         } catch (IllegalArgumentException e) {
         	
-            // Boş film ismi hatası mesajını yazdırır
+            
             System.out.println("Error message (empty title): " + e.getMessage());
         }
 

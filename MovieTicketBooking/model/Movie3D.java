@@ -18,7 +18,7 @@ public class Movie3D extends Movie {
      * @return price of the 2D movie
      */
     @Override
-    public double getPrice() {//Abstract classdaki metotu override ederek 3D filmlerin ücretini tanımlıyoruz
+    public double getPrice() {
         return 300.0; 
     }
 }

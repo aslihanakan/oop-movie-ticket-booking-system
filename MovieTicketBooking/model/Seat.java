@@ -4,9 +4,9 @@ package model;
 * Used for seat availability and reservation purposes.
 */
 
-public class Seat implements Bookable {//Bookable interfaceinde tanımlanan özelliği uygular
+public class Seat implements Bookable {
 
-	//Koltuk numarası ve rezerve edilip edilmediğini tutar
+	
     private int seatNumber;
     private boolean isBooked;
 
@@ -17,7 +17,7 @@ public class Seat implements Bookable {//Bookable interfaceinde tanımlanan öze
      *
      * @param seatNumber seat number
      */
-    public Seat(int seatNumber) { //Yeni koltuk oluşturulduğunda boş olduğunu tanımlar
+    public Seat(int seatNumber) { 
         this.seatNumber = seatNumber;
         this.isBooked = false;
     }
@@ -37,7 +37,7 @@ public class Seat implements Bookable {//Bookable interfaceinde tanımlanan öze
      *
      * @return true if the seat is booked, false otherwise
      */
-    public boolean isBooked() { //Koltuğun dolu olup olmadığını kontrol etmek için kullanılır
+    public boolean isBooked() { 
         return isBooked;
     }
 
@@ -47,12 +47,12 @@ public class Seat implements Bookable {//Bookable interfaceinde tanımlanan öze
      * If the seat is already booked, a warning message is displayed.
      */
     @Override
-    public void book() { //Bookable interfaceinden gelen zorunlu metot,rezervasyon işlemini temsil eder
+    public void book() {
         if (isBooked) {
-            System.out.println("Seat " + seatNumber + " is already booked!"); //rezerve edilmek istenen koltuk doluysa hata verir
+            System.out.println("Seat " + seatNumber + " is already booked!");
         } else {
             isBooked = true;
-            System.out.println("Seat " + seatNumber + " booked successfully.");//dolu değilse işlemi yapar
+            System.out.println("Seat " + seatNumber + " booked successfully.");
         }
     }
  
@@ -63,7 +63,7 @@ public class Seat implements Bookable {//Bookable interfaceinde tanımlanan öze
      * @return seat information string
      */
     @Override
-    public String toString() { //Koltuk ekrana yazdırıldığında durumunu yazar
+    public String toString() { 
         return "Seat " + seatNumber + (isBooked ? " (Booked)" : " (Available)");
     }
 }

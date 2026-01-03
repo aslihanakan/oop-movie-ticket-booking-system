@@ -1,4 +1,3 @@
-//Her filmin fiyatı farklı hesaplanır ama ortak özellikleri de vardır o yüzden abstract class yaparız
 package model;
 /**
 * This is the basic abstract class for movie classes. 
@@ -14,9 +13,9 @@ public abstract class Movie {
 	 * @param movieDuration duration of the movie in minutes
 	 * @throws IllegalArgumentException if title is empty or duration is not positive
 	 */
-	 public Movie(String MovieTitle, int MovieDuration) { //Filmin adını ve süresini tutar
+	 public Movie(String MovieTitle, int MovieDuration) { 
 		 
-		  //Film adının boş olmaması gerektiğini ve film süresinin pozitif girilmesi gerektiğini söyler
+		  
 		    if (MovieTitle == null || MovieTitle.trim().isEmpty()) {
 		        throw new IllegalArgumentException("Movie title cannot be empty");
 		    }
@@ -24,7 +23,7 @@ public abstract class Movie {
 		        throw new IllegalArgumentException("Movie duration must be positive");
 		    }
 
-		  //Alt sınıflar oluşturulurken çağrılırlar (Movie2D , Movie3D)
+		  
 		    this.MovieTitle = MovieTitle;
 		    this.MovieDuration = MovieDuration;
 		}
@@ -54,8 +53,7 @@ public abstract class Movie {
 	     *
 	     * @return movie ticket price
 	     */
-	    public abstract double getPrice(); //Alt sınıfların zorunlu olarak implement edeceği metot
-
+	    public abstract double getPrice(); 
 	    
 	    /**
 	     * Returns a formatted string representation of the movie.
@@ -64,7 +62,7 @@ public abstract class Movie {
 	     */
 	    @Override
 	    public String toString() {
-	        return MovieTitle + " (" + MovieDuration + " min)"; //Filmin adının ve süresinin düzgün bir şekilde yazıldığı bir çıktı oluşmasını sağlar
+	        return MovieTitle + " (" + MovieDuration + " min)"; 
 	    }
 	}
 

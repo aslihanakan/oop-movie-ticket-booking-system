@@ -14,14 +14,14 @@ public class Customer {
      * Defines possible customer types.
      * A customer can be either NORMAL or STUDENT.
      */
-    public enum CustomerType { NORMAL, STUDENT } //Müşterinin sadece bu iki gruptan biri olabileceğini sabitler.
+    public enum CustomerType { NORMAL, STUDENT } 
  
-    //Müşteri bilgisi (ad-olduğu tip)
+   
     private String customerName;
     private CustomerType customerType;
 
-    //Müşterinin yaptığı rezervasyonları tutar 
-    private List<Booking> bookingHistory = new ArrayList<>();//bir müşterinin birden fazla bilet alabilmesini sağlar
+   
+    private List<Booking> bookingHistory = new ArrayList<>();
 
     
     /**
@@ -30,7 +30,7 @@ public class Customer {
      * @param customerName Name of the customer
      * @param customerType Type of the customer (NORMAL or STUDENT)
      */
-    public Customer(String customerName, CustomerType customerType) {// Yeni bir müşteri oluştururken belirlenen kısımlar
+    public Customer(String customerName, CustomerType customerType) {
         this.customerName = customerName;
         this.customerType = customerType;
     }
@@ -41,7 +41,7 @@ public class Customer {
      * @param customerName Name of the customer
      */
     public Customer(String customerName) {
-        this(customerName, CustomerType.NORMAL);// Eğer müşteri tipi belirlenmezse otomatik olarak Normal alınır
+        this(customerName, CustomerType.NORMAL);
     }
  
     /**
@@ -69,7 +69,7 @@ public class Customer {
      *
      * @return true if customer is STUDENT, false otherwise
      */
-    public boolean isStudent() { //İndirim uygulamalarında sorun olmaması için müşterinin öğrenci olup olmadığını kontrol eder
+    public boolean isStudent() { 
         return customerType == CustomerType.STUDENT;
     }
 
@@ -79,7 +79,7 @@ public class Customer {
      *
      * @param b booking to be added
      */
-    public void addBooking(Booking b) { //Müşteri yeni bir bilet aldığında rezervasyon geçmişine ekler
+    public void addBooking(Booking b) { 
         bookingHistory.add(b);
     }
 }

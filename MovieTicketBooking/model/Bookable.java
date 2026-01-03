@@ -6,7 +6,7 @@ package model;
 */
 
 public interface Bookable {
-	//nesnenin rezerve edilebilmesi gerektiğini belirtiriz.
+	
 	void book();
 	
 

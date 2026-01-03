@@ -7,22 +7,22 @@ package model;
 
 public class Booking {
 
-    private Customer customer; //müşteri bilgisini tutmak için
-    private ShowTime showTime; //rezervasyon yapılan filmin seansını tutmak için
-    private Seat seat; //rezerve edilen koltuğu tutmak için
-    private double totalPrice; //fiyatı tutar
-    private boolean confirmed; //rezervasyonun olup olmadığını tutar
+    private Customer customer; 
+    private ShowTime showTime; 
+    private Seat seat; 
+    private double totalPrice;
+    private boolean confirmed; 
 
-    private static final double STUDENT_DISCOUNT_RATE = 0.20; // Öğrenciler için uygulanacak olan %20 indirim oranını sabitler 
+    private static final double STUDENT_DISCOUNT_RATE = 0.20; 
 
-    public Booking(Customer customer, ShowTime showTime, Seat seat) { //rezervasyon oluşturulması için gerekli bilgileri alır
+    public Booking(Customer customer, ShowTime showTime, Seat seat) { 
         this.customer = customer;
         this.showTime = showTime;
         this.seat = seat;
 
-        //fiyatı otomatik hesaplar 
+        
         this.totalPrice = calculateFinalPrice();
-        this.confirmed = false; //yeni oluşturulan rezervasyonun başta onaylanmadığını belirtir
+        this.confirmed = false; 
     }
 
     /**
@@ -32,8 +32,8 @@ public class Booking {
      * @return calculated total price
      */
     public double calculateFinalPrice() {
-        double basePrice = showTime.getMovie().getPrice();//filmden gelen standart fiyatı alır
-        //kullanıcı öğrenciyse indirimli fiyat olmasını sağlar 
+        double basePrice = showTime.getMovie().getPrice();
+        
         if (customer.isStudent()) {
             basePrice = basePrice * (1 - STUDENT_DISCOUNT_RATE);
         }
@@ -45,21 +45,21 @@ public class Booking {
      * Confirms the reservation and marks the seat as booked.
      * Prevents duplicate reservations.
      */
-    public void confirm() {//aynı rezervasyonun ikinci kez yapılmasını engeller 
+    public void confirm() {
         if (confirmed) {
             System.out.println("This booking is already confirmed.");
             return;
         }
-        //aynı koltuğun tekrar tekrar seçilmesini engeller
+        
         if (seat.isBooked()) {
             System.out.println("Error: Seat " + seat.getSeatNumber() + " is already booked!");
             return;
         }
-        //yapılan koltuk seçiminin ve rezervasyonun kaydedilmesini sağlar
+       
         seat.book();
         confirmed = true;
         
-        //rezervasyon geçmişini tutar
+       
         customer.addBooking(this);
 
         System.out.println("Booking confirmed!");
@@ -76,7 +76,7 @@ public class Booking {
      *
      * @return total ticket price
      */
-    public double getTotalPrice() { //hesaplanmış fiyatı dışarı verir 
+    public double getTotalPrice() { 
         return totalPrice;
     }
 }
