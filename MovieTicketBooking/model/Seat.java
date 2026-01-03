@@ -1,4 +1,8 @@
 package model;
+/**
+* Represents a single seat in the cinema. 
+* Used for seat availability and reservation purposes.
+*/
 
 public class Seat implements Bookable {//Bookable interfaceinde tanımlanan özelliği uygular
 
@@ -6,24 +10,44 @@ public class Seat implements Bookable {//Bookable interfaceinde tanımlanan öze
     private int seatNumber;
     private boolean isBooked;
 
-    //Yeni koltuk oluşturulduğunda boş olduğunu tanımlar
-    public Seat(int seatNumber) {
+    
+    /**
+     * Creates a seat with the given seat number.
+     * The seat is initially marked as available.
+     *
+     * @param seatNumber seat number
+     */
+    public Seat(int seatNumber) { //Yeni koltuk oluşturulduğunda boş olduğunu tanımlar
         this.seatNumber = seatNumber;
         this.isBooked = false;
     }
 
+    /**
+     * Returns the seat number.
+     *
+     * @return seat number
+     */
     public int getSeatNumber() {
         return seatNumber;
     }
 
-    //Koltuğun dolu olup olmadığını kontrol etmek için kullanılır
-    public boolean isBooked() {
+    
+    /**
+     * Checks whether the seat is already booked.
+     *
+     * @return true if the seat is booked, false otherwise
+     */
+    public boolean isBooked() { //Koltuğun dolu olup olmadığını kontrol etmek için kullanılır
         return isBooked;
     }
 
-    //Bookable interfaceinden gelen zorunlu metot,rezervasyon işlemini temsil eder
+    
+    /**
+     * Reserves the seat.
+     * If the seat is already booked, a warning message is displayed.
+     */
     @Override
-    public void book() {
+    public void book() { //Bookable interfaceinden gelen zorunlu metot,rezervasyon işlemini temsil eder
         if (isBooked) {
             System.out.println("Seat " + seatNumber + " is already booked!"); //rezerve edilmek istenen koltuk doluysa hata verir
         } else {
@@ -32,9 +56,14 @@ public class Seat implements Bookable {//Bookable interfaceinde tanımlanan öze
         }
     }
  
-    //Koltuk ekrana yazdırıldığında durumunu yazar
+    
+    /**
+     * Returns a string representation of the seat and its current status.
+     *
+     * @return seat information string
+     */
     @Override
-    public String toString() {
+    public String toString() { //Koltuk ekrana yazdırıldığında durumunu yazar
         return "Seat " + seatNumber + (isBooked ? " (Booked)" : " (Available)");
     }
 }

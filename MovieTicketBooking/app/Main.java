@@ -2,6 +2,7 @@ package app;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,10 +15,20 @@ import model.Movie3D;
 import model.Seat;
 import model.ShowTime;
 
+/**
+ * Entry point of the Movie Ticket Booking System.
+ * Collects user input and coordinates the booking workflow.
+ */
 public class Main {
    
-	//Programın çalışmaya başlayacağı sınıf
-    public static void main(String[] args) {
+	
+	/**
+     * Runs the console-based booking flow:
+     * movie selection, showtime selection, seat selection, and booking confirmation.
+     *
+     * @param args command-line arguments (not used)
+     */
+    public static void main(String[] args) { //Programın çalışmaya başlayacağı sınıf
 
     	//Kullanıcının sistemde seçim yapmasını sağlar 
         Scanner scanner = new Scanner(System.in);
@@ -37,8 +48,18 @@ public class Main {
             System.out.println((i + 1) + ") " + movies.get(i).getMovieTitle());
         }
       
-        //Kullanıcıdan seçtiği filmin numarasını alır
-        int movieChoice = readInt(scanner, "\nSelect a movie (1-" + movies.size() + "): ", 1, movies.size());
+       
+        /**
+         * Reads an integer input from the user within the given range.
+         * Keeps asking until a valid number is entered.
+         *
+         * @param sc scanner used for input
+         * @param prompt message shown to the user
+         * @param min minimum allowed value
+         * @param max maximum allowed value
+         * @return a valid integer within [min, max]
+         */
+        int movieChoice = readInt(scanner, "\nSelect a movie (1-" + movies.size() + "): ", 1, movies.size());  //Kullanıcıdan seçtiği filmin numarasını alır
         Movie selectedMovie = movies.get(movieChoice - 1);
 
         //Seçilen filme ait 3 seans oluşturur
@@ -82,15 +103,23 @@ public class Main {
             
             //Koltuk doluysa uyarı verir ve tekrar seçtirmek için başa döner
             if (selectedSeat.isBooked()) {
-                System.out.println("❌ This seat is already booked. Please choose another seat.");
+                System.out.println("This seat is already booked. Please choose another seat.");
                 continue;
             }
 
-            //Müşteri bilgilerinii alır
-            String name = readNonEmptyLine(scanner, "\nEnter your name: ");
+           
+            /**
+             * Reads a non-empty line from the user.
+             * Keeps asking until the user enters a non-empty value.
+             *
+             * @param sc scanner used for input
+             * @param prompt message shown to the user
+             * @return non-empty string
+             */
+            String name = readNonEmptyLine(scanner, "\nEnter your name: ");  //Müşteri bilgilerinii alır
             Customer.CustomerType type = askCustomerType(scanner);
 
-            Customer customer = new Customer(name);
+            Customer customer = new Customer(name, type);
 
 
             //Rezervasyonla ilgili tüm bilgileri tutar
@@ -110,6 +139,9 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Reads an integer input from the user within the given range.
+     */
     private static int readInt(Scanner sc, String prompt, int min, int max) { //Kullanıcıdan sadece geçerli olan sayısal değerleri almak için yardımcı metot
         while (true) {//kullanıcı doğru değeri girene kadar döngü
             System.out.print(prompt);
@@ -126,7 +158,10 @@ public class Main {
             }
         }
     }
-
+ 
+    /**
+     * Reads a non-empty line from the user.
+     */
     private static String readNonEmptyLine(Scanner sc, String prompt) {//boş isim boş metin girilmesini engeller
         while (true) {
             System.out.print(prompt);
@@ -136,6 +171,12 @@ public class Main {
         }
     }
 
+    /**
+     * Asks the user to select the customer type (NORMAL or STUDENT).
+     *
+     * @param sc scanner used for input
+     * @return selected customer type
+     */
     private static Customer.CustomerType askCustomerType(Scanner sc) {//Müşteri tipi seçtirir
         System.out.println("\nCustomer type:");
         System.out.println("1) NORMAL");

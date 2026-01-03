@@ -3,12 +3,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+* Represents a movie's showtime at a specific time. 
+* Keeps track of seats and showtime information.
+*/
 public class ShowTime { //Seansı temsil eden sınıf
 
     private final Movie movie; //Seansın hangi filme ait olduğu
     private final String time; //Seans saati
     private final List<Seat> seats; //Bu seansa ait koltuk bilgisi
-
+    
+    /**
+     * Creates a new showtime for a given movie.
+     * Initializes seats from 1 to seatCount.
+     *
+     * @param movie the movie of this showtime
+     * @param time the showtime time (e.g., "18:00")
+     * @param seatCount number of seats for this showtime
+     * @throws IllegalArgumentException if movie is null, time is empty, or seatCount is not positive
+     */
     public ShowTime(Movie movie, String time, int seatCount) { //Yeni seans oluşturur
     	
     	//Seans için gerekli olan bilgiler boş olursa doldurulması için uyarı verir
@@ -33,19 +46,41 @@ public class ShowTime { //Seansı temsil eden sınıf
         }
     }
 
+    /**
+     * Returns the movie of this showtime.
+     *
+     * @return movie object
+     */
     public Movie getMovie() {
         return movie;
     }
 
+    /**
+     * Returns the time of this showtime.
+     *
+     * @return showtime time
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     * Returns an unmodifiable list of seats.
+     * This prevents external modification of the seat list.
+     *
+     * @return unmodifiable seat list
+     */
     public List<Seat> getSeats() {
         return Collections.unmodifiableList(seats); // Koltuk listesine dışarıdan müdahale olmasın
     }
 
-    
+    /**
+     * Returns the seat object for the given seat number.
+     *
+     * @param number seat number (starting from 1)
+     * @return Seat object for the given number
+     * @throws IllegalArgumentException if the seat number is out of range
+     */
     public Seat getSeat(int number) { //kullanıcı seçimine göre tek koltuk döndürür
         if (number < 1 || number > seats.size()) { //Koltuk numarasının mevcut koltuk sayısına uygunluğunu kontrol eder
             throw new IllegalArgumentException(
@@ -55,6 +90,10 @@ public class ShowTime { //Seansı temsil eden sınıf
         return seats.get(number - 1); //koltukları kullanıcı 1-30 şeklinde görmelidir ama kodda indeksler 0 dan başladığı için 0-29 olur bunu düzeltir
     }
 
+    /**
+     * Prints the seat map of this showtime.
+     * Booked seats are displayed as [XX], available seats are displayed as [01], [02], ...
+     */
     public void printSeatMap() { //Kullanıcıya koltuk düzenini gösterir
         System.out.println("Seat map for " + movie.getMovieTitle() + " at " + time + ":"); // Hangi film ve hangi saat olduğunu gösterir
 
@@ -74,7 +113,11 @@ public class ShowTime { //Seansı temsil eden sınıf
         }
         System.out.println();
     }
-
+    /**
+     * Returns a formatted string representation of the showtime.
+     *
+     * @return showtime information string
+     */
     @Override
     public String toString() {
         return movie.getMovieTitle() + " at " + time;

@@ -12,9 +12,16 @@ import model.Movie2D;
 import model.Seat;
 import model.ShowTime;
 
+/**
+* This is the JUnit test class that tests whether the Booking class is working correctly. 
+*/
+
 class BookingTest { // Booking sınıfını test ediyoruz
 
-
+ 
+	/**
+     * Tests that a NORMAL customer pays the full ticket price (no discount).
+     */
     @Test
     void testNormalTicketPrice() { // Normal müşteri için fiyatın doğruluğunu test eder 
         
@@ -30,6 +37,9 @@ class BookingTest { // Booking sınıfını test ediyoruz
         Assertions.assertEquals(200.0, b.getTotalPrice(), 0.01);
     }
 
+    /**
+     * Tests that a STUDENT customer receives a 20% discount.
+     */
     @Test
     void testStudentDiscountCalculation() { // Öğrenci indiriminin yapılıp yapılmadığı test edilir
         Movie m = new Movie2D("Inception", 100);
@@ -43,6 +53,9 @@ class BookingTest { // Booking sınıfını test ediyoruz
         Assertions.assertEquals(160.0, b.getTotalPrice(), 0.01);
     }
 
+    /**
+     * Tests that confirming a booking marks the selected seat as booked.
+     */
     @Test
     void testSeatConfirmationSystem() { // Rezervasyon yapılınca koltuğun doldurulduğunu kontrol eder
         Movie m = new Movie2D("Inception", 100);
@@ -60,6 +73,9 @@ class BookingTest { // Booking sınıfını test ediyoruz
     }
 
 
+    /**
+     * Tests that invalid seat numbers throw IllegalArgumentException.
+     */
     @Test
     void testInvalidSeatNumber() { 
         Movie m = new Movie2D("Test", 100);
@@ -70,6 +86,9 @@ class BookingTest { // Booking sınıfını test ediyoruz
         Assertions.assertThrows(IllegalArgumentException.class, () -> st.getSeat(0));
     }
 
+    /**
+     * Tests that ShowTime constructor throws exceptions for invalid parameters.
+     */
     @Test
     void testEmptyParameterErrors() { //dolu olması gereken değerleri kontrol eder
         Movie m = new Movie2D("Test", 100);
@@ -86,7 +105,10 @@ class BookingTest { // Booking sınıfını test ediyoruz
             () -> new ShowTime(m, "", 5)
         );
     }
-
+    
+    /**
+     * Tests that the same seat cannot be booked twice by different bookings.
+     */
     @Test
     void testBookingSameSeatAgain() { //aynı koltuğun tekrar alınaadığını kontrol eder
         Movie m = new Movie2D("Test", 100);

@@ -1,5 +1,10 @@
 package model;
 
+/**
+* This is for ticket reservations made by a customer.
+* It performs price calculation and reservation confirmation processes.
+*/
+
 public class Booking {
 
     private Customer customer; //müşteri bilgisini tutmak için
@@ -20,6 +25,12 @@ public class Booking {
         this.confirmed = false; //yeni oluşturulan rezervasyonun başta onaylanmadığını belirtir
     }
 
+    /**
+     * Calculates the final ticket price.
+     * Applies student discount if applicable.
+     *
+     * @return calculated total price
+     */
     public double calculateFinalPrice() {
         double basePrice = showTime.getMovie().getPrice();//filmden gelen standart fiyatı alır
         //kullanıcı öğrenciyse indirimli fiyat olmasını sağlar 
@@ -29,8 +40,12 @@ public class Booking {
 
         return basePrice;
     }
-    //aynı rezervasyonun ikinci kez yapılmasını engeller 
-    public void confirm() {
+    
+    /**
+     * Confirms the reservation and marks the seat as booked.
+     * Prevents duplicate reservations.
+     */
+    public void confirm() {//aynı rezervasyonun ikinci kez yapılmasını engeller 
         if (confirmed) {
             System.out.println("This booking is already confirmed.");
             return;
@@ -56,6 +71,11 @@ public class Booking {
         System.out.println("Price: " + totalPrice + " TL");
     }
 
+    /**
+     * Returns the total price of the reservation.
+     *
+     * @return total ticket price
+     */
     public double getTotalPrice() { //hesaplanmış fiyatı dışarı verir 
         return totalPrice;
     }
